@@ -41,31 +41,28 @@ DEFINE_ENUM(IOTHUB_REGISTRYMANAGER_RESULT, IOTHUB_REGISTRYMANAGER_RESULT_VALUES)
 
 DEFINE_ENUM(IOTHUB_REGISTRYMANAGER_AUTH_METHOD, IOTHUB_REGISTRYMANAGER_AUTH_METHOD_VALUES);
 
-#define IOTHUB_DEVICE_EX_VERSION_0 0    //same fields as IOTHUB_DEVICE
 #define IOTHUB_DEVICE_EX_VERSION_1 1
-#define IOTHUB_DEVICE_EX_VERSION_LATEST IOTHUB_DEVICE_EX_VERSION_1
-
 typedef struct IOTHUB_DEVICE_EX_TAG
 {
     int version;
-    const char* deviceId;                           //version 0+
-    const char* primaryKey;                         //version 0+
-    const char* secondaryKey;                       //version 0+
-    const char* generationId;                       //version 0+
-    const char* eTag;                               //version 0+
-    IOTHUB_DEVICE_CONNECTION_STATE connectionState; //version 0+
-    const char* connectionStateUpdatedTime;         //version 0+
-    IOTHUB_DEVICE_STATUS status;                    //version 0+
-    const char* statusReason;                       //version 0+
-    const char* statusUpdatedTime;                  //version 0+
-    const char* lastActivityTime;                   //version 0+
-    size_t cloudToDeviceMessageCount;               //version 0+
+    const char* deviceId;                           //version 1+
+    const char* primaryKey;                         //version 1+
+    const char* secondaryKey;                       //version 1+
+    const char* generationId;                       //version 1+
+    const char* eTag;                               //version 1+
+    IOTHUB_DEVICE_CONNECTION_STATE connectionState; //version 1+
+    const char* connectionStateUpdatedTime;         //version 1+
+    IOTHUB_DEVICE_STATUS status;                    //version 1+
+    const char* statusReason;                       //version 1+
+    const char* statusUpdatedTime;                  //version 1+
+    const char* lastActivityTime;                   //version 1+
+    size_t cloudToDeviceMessageCount;               //version 1+
 
-    bool isManaged;                                 //version 0+
-    const char* configuration;                      //version 0+
-    const char* deviceProperties;                   //version 0+
-    const char* serviceProperties;                  //version 0+
-    IOTHUB_REGISTRYMANAGER_AUTH_METHOD authMethod;  //version 0+
+    bool isManaged;                                 //version 1+
+    const char* configuration;                      //version 1+
+    const char* deviceProperties;                   //version 1+
+    const char* serviceProperties;                  //version 1+
+    IOTHUB_REGISTRYMANAGER_AUTH_METHOD authMethod;  //version 1+
 
     bool iotEdge_capable;                           //version 1+
 } IOTHUB_DEVICE_EX;
@@ -75,32 +72,28 @@ typedef struct IOTHUB_DEVICE_EX_TAG
 *
 * @param    deviceInfo      The structure to have its members freed.
 */
-extern void free_deviceEx_members(IOTHUB_DEVICE_EX* deviceInfo);
+extern void IoTHubRegistryManager_FreeDeviceExMembers(IOTHUB_DEVICE_EX* deviceInfo);
 
-#define IOTHUB_REGISTRY_DEVICE_CREATE_EX_VERSION_0 0
 #define IOTHUB_REGISTRY_DEVICE_CREATE_EX_VERSION_1 1
-#define IOTHUB_REGISTRY_DEVICE_CREATE_EX_VERSION_LATEST IOTHUB_REGISTRY_DEVICE_CREATE_EX_VERSION_1
 typedef struct IOTHUB_REGISTRY_DEVICE_CREATE_EX_TAG
 {
     int version;
-    const char* deviceId;                           //version 0+
-    const char* primaryKey;                         //version 0+
-    const char* secondaryKey;                       //version 0+
-    IOTHUB_REGISTRYMANAGER_AUTH_METHOD authMethod;  //version 0+
+    const char* deviceId;                           //version 1+
+    const char* primaryKey;                         //version 1+
+    const char* secondaryKey;                       //version 1+
+    IOTHUB_REGISTRYMANAGER_AUTH_METHOD authMethod;  //version 1+
     bool iotEdge_capable;                           //version 1+
 } IOTHUB_REGISTRY_DEVICE_CREATE_EX;
 
-#define IOTHUB_REGISTRY_DEVICE_UPDATE_EX_VERSION_0 0
 #define IOTHUB_REGISTRY_DEVICE_UPDATE_EX_VERSION_1 1
-#define IOTHUB_REGISTRY_DEVICE_UPDATE_EX_VERSION_LATEST IOTHUB_REGISTRY_DEVICE_CREATE_EX_VERSION_1
 typedef struct IOTHUB_REGISTRY_DEVICE_UPDATE_EX_TAG
 {
     int version;
-    const char* deviceId;                           //version 0+
-    const char* primaryKey;                         //version 0+
-    const char* secondaryKey;                       //version 0+
-    IOTHUB_DEVICE_STATUS status;                    //version 0+
-    IOTHUB_REGISTRYMANAGER_AUTH_METHOD authMethod;  //version 0+
+    const char* deviceId;                           //version 1+
+    const char* primaryKey;                         //version 1+
+    const char* secondaryKey;                       //version 1+
+    IOTHUB_DEVICE_STATUS status;                    //version 1+
+    IOTHUB_REGISTRYMANAGER_AUTH_METHOD authMethod;  //version 1+
     bool iotEdge_capable;                           //version 1+
 } IOTHUB_REGISTRY_DEVICE_UPDATE_EX;
 
@@ -112,7 +105,6 @@ typedef struct IOTHUB_REGISTRY_STATISTIC_TAG
 } IOTHUB_REGISTRY_STATISTICS;
 
 #define IOTHUB_MODULE_VERSION_1 1
-#define IOTHUB_MODULE_VERSION_LATEST IOTHUB_MODULE_VERSION_1
 typedef struct IOTHUB_MODULE_TAG
 {
     int version;
@@ -143,11 +135,10 @@ typedef struct IOTHUB_MODULE_TAG
 *
 * @param    moduleInfo      The structure to have its members freed.
 */
-extern void free_module_members(IOTHUB_MODULE* moduleInfo);
+extern void IoTHubRegistryManager_FreeModuleMembers(IOTHUB_MODULE* moduleInfo);
 
 
 #define IOTHUB_REGISTRY_MODULE_CREATE_VERSION_1 1
-#define IOTHUB_REGISTRY_MODULE_CREATE_VERSION_LATEST IOTHUB_REGISTRY_MODULE_CREATE_VERSION_1
 typedef struct IOTHUB_REGISTRY_MODULE_CREATE_TAG
 {
     int version;
@@ -159,7 +150,6 @@ typedef struct IOTHUB_REGISTRY_MODULE_CREATE_TAG
 } IOTHUB_REGISTRY_MODULE_CREATE;
 
 #define IOTHUB_REGISTRY_MODULE_UPDATE_VERSION_1 1
-#define IOTHUB_REGISTRY_MODULE_UPDATE_VERSION_LATEST IOTHUB_REGISTRY_MODULE_UPDATE_VERSION_1
 typedef struct IOTHUB_REGISTRY_MODULE_UPDATE_TAG
 {
     int version;
@@ -331,9 +321,9 @@ extern IOTHUB_REGISTRYMANAGER_RESULT IoTHubRegistryManager_DeleteModule(IOTHUB_R
 extern IOTHUB_REGISTRYMANAGER_RESULT IoTHubRegistryManager_GetModuleList(IOTHUB_REGISTRYMANAGER_HANDLE registryManagerHandle, const char* deviceId, SINGLYLINKEDLIST_HANDLE moduleList);
 
 
-/* DEPRECATED: THE FOLLOWING APIS ARE DEPRECATED, AND ARE ONLY BEING KEPT FOR BACK COMPAT. PLEASE DO NOT USE */
-/* DEPRECATED: THE FOLLOWING APIS ARE DEPRECATED, AND ARE ONLY BEING KEPT FOR BACK COMPAT. PLEASE DO NOT USE */
-/* DEPRECATED: THE FOLLOWING APIS ARE DEPRECATED, AND ARE ONLY BEING KEPT FOR BACK COMPAT. PLEASE DO NOT USE */
+/* DEPRECATED: THE FOLLOWING APIS ARE DEPRECATED, AND ARE ONLY BEING KEPT FOR BACK COMPAT. PLEASE USE _EX EQUIVALENT ABOVE */
+/* DEPRECATED: THE FOLLOWING APIS ARE DEPRECATED, AND ARE ONLY BEING KEPT FOR BACK COMPAT. PLEASE USE _EX EQUIVALENT ABOVE */
+/* DEPRECATED: THE FOLLOWING APIS ARE DEPRECATED, AND ARE ONLY BEING KEPT FOR BACK COMPAT. PLEASE USE _EX EQUIVALENT ABOVE */
 
 /* Please use IOTHUB_DEVICE_EX instead */
 typedef struct IOTHUB_DEVICE_TAG
