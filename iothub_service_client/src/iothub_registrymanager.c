@@ -170,7 +170,7 @@ static void initializeDeviceOrModuleInfoMembers(IOTHUB_DEVICE_OR_MODULE* deviceO
     }
 }
 
-void free_deviceEx_members(IOTHUB_DEVICE_EX* deviceInfo)
+void IoTHubRegistryManager_FreeDeviceExMembers(IOTHUB_DEVICE_EX* deviceInfo)
 {
     free((void*)deviceInfo->deviceId);
     free((void*)deviceInfo->primaryKey);
@@ -187,7 +187,7 @@ void free_deviceEx_members(IOTHUB_DEVICE_EX* deviceInfo)
     memset(deviceInfo, 0, sizeof(deviceInfo));
 }
 
-void free_module_members(IOTHUB_MODULE* moduleInfo)
+void IoTHubRegistryManager_FreeModuleMembers(IOTHUB_MODULE* moduleInfo)
 {
     free((void*)moduleInfo->deviceId);
     free((void*)moduleInfo->primaryKey);
@@ -280,7 +280,7 @@ static void move_deviceOrModule_members_to_module(IOTHUB_DEVICE_OR_MODULE* devic
 {
     if ((deviceOrModule != NULL) && (module != NULL))
     {
-        if (device->version >= IOTHUB_MODULE_VERSION_1)
+        if (module->version >= IOTHUB_MODULE_VERSION_1)
         {
             module->deviceId = deviceOrModule->deviceId;
             module->primaryKey = deviceOrModule->primaryKey;
@@ -1547,7 +1547,7 @@ IOTHUB_REGISTRYMANAGER_RESULT IoTHubRegistryManager_CreateDevice_Ex(IOTHUB_REGIS
         LogError("deviceCreateInfo must have a valid version");
         result = IOTHUB_REGISTRYMANAGER_INVALID_VERSION;
     }
-    else if ((deviceInfo->version < IOTHIB_REGISTRY_DEVICE_CREATE_EX_VERSION_1) ||
+    else if ((deviceInfo->version < IOTHUB_REGISTRY_DEVICE_CREATE_EX_VERSION_1) ||
             (deviceInfo->version > IOTHUB_REGISTRY_DEVICE_CREATE_EX_VERSION_LATEST))
     {
         LogError("deviceInfo must have a valid version");
@@ -1673,7 +1673,7 @@ IOTHUB_REGISTRYMANAGER_RESULT IoTHubRegistryManager_GetDevice_Ex(IOTHUB_REGISTRY
         LogError("Input parameter cannot be NULL");
         result = IOTHUB_REGISTRYMANAGER_INVALID_ARG;
     }
-    else if ((deviceInfo->version < IOTHIB_REGISTRY_DEVICE_CREATE_EX_VERSION_1) ||
+    else if ((deviceInfo->version < IOTHUB_REGISTRY_DEVICE_CREATE_EX_VERSION_1) ||
             (deviceInfo->version > IOTHUB_REGISTRY_DEVICE_CREATE_EX_VERSION_LATEST))
     {
         LogError("deviceInfo must have a valid version");
@@ -2013,7 +2013,7 @@ IOTHUB_REGISTRYMANAGER_RESULT IoTHubRegistryManager_CreateModule(IOTHUB_REGISTRY
         LogError("moduleCreate must have a valid version");
         result = IOTHUB_REGISTRYMANAGER_INVALID_VERSION;
     }
-    else if (module->version < IOTHUB_MODULE_VERSION_1 || moduleCreate->version > IOTHUB_REGISTRY_MODULE_VERSION_LATEST)
+    else if (module->version < IOTHUB_MODULE_VERSION_1 || module->version > IOTHUB_MODULE_VERSION_LATEST)
     {
         LogError("module must have a valid version");
         result = IOTHUB_REGISTRYMANAGER_INVALID_VERSION;
@@ -2056,7 +2056,7 @@ IOTHUB_REGISTRYMANAGER_RESULT IoTHubRegistryManager_GetModule(IOTHUB_REGISTRYMAN
         LogError("Input parameter cannot be NULL");
         result = IOTHUB_REGISTRYMANAGER_INVALID_ARG;
     }
-    else if (module->version < IOTHUB_MODULE_VERSION_1 || moduleCreate->version > IOTHUB_REGISTRY_MODULE_VERSION_LATEST)
+    else if (module->version < IOTHUB_MODULE_VERSION_1 || module->version > IOTHUB_MODULE_VERSION_LATEST)
     {
         LogError("module must have a valid version");
         result = IOTHUB_REGISTRYMANAGER_INVALID_VERSION;
